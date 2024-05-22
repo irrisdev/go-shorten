@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"go-shorten/handlers"
+	"github.com/irrisdev/go-shorten/handlers"
 	"net/http"
 )
 

@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"go-shorten/config"
-	"go-shorten/models"
-	"go-shorten/routes"
+	"github.com/irrisdev/go-shorten/config"
+	"github.com/irrisdev/go-shorten/models"
+	"github.com/irrisdev/go-shorten/routes"
 	"log"
 	"net"
 	"net/http"
