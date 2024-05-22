@@ -46,11 +46,11 @@ func createTables() error {
 	}
 
 	createTableSQL := ` CREATE TABLE IF NOT EXISTS URLS(
-    id TEXT PRIMARY KEY,
     OriginalURL TEXT NOT NULL,
-    ShortURL TEXT NOT NULL,
-    Creation TIMESTAMP default CURRENT_TIMESTAMP,
-    Expiration TIMESTAMP );`
+    ShortURL TEXT PRIMARY KEY,
+    Clicks NUMBER NOT NULL,
+    Creation NUMBER NOT NULL,
+    Expiration NUMBER );`
 
 	_, err = db.Exec(createTableSQL)
 	if err != nil {

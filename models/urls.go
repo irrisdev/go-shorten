@@ -1,11 +1,9 @@
 package models
 
-import "time"
-
 type URL struct {
-	OriginalURL string    `json:"original_url"`
-	ShortURL    string    `json:"short_url"`
-	Clicks      int       `json:"clicks"`
-	Creation    time.Time `json:"creation"`
-	Expiration  time.Time `json:"expiration,omitempty"`
+	OriginalURL string
+	ShortURL    string
+	Clicks      int
+	Creation    int64
+	Expiration  int64
 }

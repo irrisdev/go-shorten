@@ -1,8 +1,8 @@
 package handlers
 
 import (
+	"github.com/irrisdev/go-shorten/utils"
 	"html/template"
-	"io"
 	"net/http"
 )
 
@@ -13,9 +13,12 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	io.WriteString(w, r.Method)
+	someExamples := utils.QueryAll(10)
 
-	tmpl := template.Must(template.ParseFiles("index.html"))
+	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 
-	tmpl.Execute(w, nil)
+	if err := tmpl.Execute(w, someExamples); err != nil {
+		http.Error(w, "Internal Error", http.StatusInternalServerError)
+	}
+
 }
