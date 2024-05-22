@@ -12,6 +12,7 @@ func InitRouter() *http.ServeMux {
 	mux.HandleFunc("/", handlers.Index)
 	mux.HandleFunc("/shorten", handlers.CreateURL)
 	mux.HandleFunc("/redirect/{id}", handlers.RedirectURL)
+	mux.HandleFunc("/all", handlers.GetAll)
 
 	return mux
 }

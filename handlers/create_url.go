@@ -1,17 +1,16 @@
 package handlers
 
 import (
+	"io"
 	"net/http"
 )
 
 func CreateURL(w http.ResponseWriter, r *http.Request) {
 
-	switch r.Method {
-	case http.MethodPost:
-		break
-	default:
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
+	io.WriteString(w, r.Method)
 
 }

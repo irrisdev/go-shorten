@@ -1,21 +1,21 @@
 package handlers
 
 import (
-	"fmt"
+	"html/template"
+	"io"
 	"net/http"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
 
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
-	switch r.Method {
-	case http.MethodGet:
-		fmt.Fprint(w, "Index Page")
-	default:
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-	}
+	io.WriteString(w, r.Method)
+
+	tmpl := template.Must(template.ParseFiles("index.html"))
+
+	tmpl.Execute(w, nil)
 }

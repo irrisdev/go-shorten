@@ -1,16 +1,19 @@
 package handlers
 
 import (
-	"io"
+	"fmt"
+	"github.com/irrisdev/go-shorten/utils"
 	"net/http"
 )
 
-func RedirectURL(w http.ResponseWriter, r *http.Request) {
+func GetAll(w http.ResponseWriter, r *http.Request) {
+
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
-	io.WriteString(w, r.Method)
+	urls := utils.QueryAll()
+	fmt.Println(urls)
 
 }
