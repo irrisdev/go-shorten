@@ -1,0 +1,107 @@
+{{define "layout"}}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Go-Shorten</title>
+    <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        input[type="text"] {
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+            min-width: 3rem; /* Adjust as needed */
+            width: 100%; /* Fill the available space */
+        }
+
+        #urlOut {
+            background-color: transparent;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+            min-width: 3rem; /* Adjust as needed */
+            width: 100%; /* Fill the available space */
+        }
+
+        input:-webkit-autofill {
+            background-color: transparent;
+        }
+
+        .bbtn {
+            background-color: #FF6B6B;
+            color: white;
+            border: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0.5rem 1rem rgba(255, 107, 107, 0.2);
+        }
+
+        .bbtn:hover {
+            background-color: #FF8787;
+            transform: translateY(-2px);
+            box-shadow: 0 0.75rem 1.5rem rgba(255, 107, 107, 0.2);
+        }
+
+        .innerForm, #visit {
+            background-color: rgba(0, 0, 0, 100);
+        }
+
+        .dark-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, #FF6B6B, #785CE3, #00B0FF);
+            mix-blend-mode: multiply;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(100px);
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col items-center justify-center text-center mx-3">
+
+<div class="dark-gradient"></div>
+<div class="text-white">
+    <h1 class="text-4xl font-bold">URL Shortener</h1>
+</div>
+
+{{ template "content" . }}
+
+<p class="mt-2 text-gray-300 text-sm">Your shortened URL will appear here</p>
+
+<script>
+    const $defaultIcon = document.getElementById('default-icon');
+    const $successIcon = document.getElementById('success-icon');
+
+    function copyToClipboard() {
+        let copyText = document.getElementById("urlOut");
+        navigator.clipboard.writeText(copyText.innerHTML);
+        showSuccess();
+        setTimeout(() => {
+            resetToDefault();
+        }, 2000);
+    }
+    const showSuccess = () => {
+        $defaultIcon.classList.add('hidden');
+        $successIcon.classList.remove('hidden');
+    }
+    const resetToDefault = () => {
+        $defaultIcon.classList.remove('hidden');
+        $successIcon.classList.add('hidden');
+    }
+</script>
+</body>
+</html>
+{{end}}

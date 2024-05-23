@@ -23,7 +23,7 @@ func InitDB() error {
 
 		_, err := os.Create(dbPath)
 		if err != nil {
-			log.Println()
+			log.Println(err)
 			return err
 		}
 

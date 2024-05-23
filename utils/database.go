@@ -129,10 +129,9 @@ func click(code string) {
 	}
 	defer db.Close()
 
-	result, err := db.Exec("UPDATE URLS SET Clicks = Clicks + 1 WHERE ShortURL = ?", code)
+	_, err = db.Exec("UPDATE URLS SET Clicks = Clicks + 1 WHERE ShortURL = ?", code)
 	if err != nil {
 		log.Println(err)
 	}
-	log.Println(result)
 
 }

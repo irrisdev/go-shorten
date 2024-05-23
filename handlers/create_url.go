@@ -1,15 +1,14 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/irrisdev/go-shorten/models"
+	"github.com/irrisdev/go-shorten/templates"
 	"github.com/irrisdev/go-shorten/utils"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
-	"text/template"
 	"time"
 )
 
@@ -22,6 +21,7 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 
 	inputUrl := r.PostFormValue("url")
 
+	//Appends SCHEMA to url if doesn't include
 	if !strings.HasPrefix(inputUrl, "http://") && !strings.HasPrefix(inputUrl, "https://") {
 		inputUrl = "https://" + inputUrl
 	}
@@ -44,7 +44,7 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 
 	if err := utils.InsertEntry(&entry); err != nil {
 		log.Println(err)
-		http.Error(w, "Bad Request", http.StatusBadRequest)
+		http.Error(w, "Internal Error", http.StatusInternalServerError)
 		return
 	}
 
@@ -55,12 +55,7 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	completeURL := u.String()
-	htmlStr := fmt.Sprintf(`<label for="urlShortened">Shortened URL</label>
-    <div class="input-group" id="result" ><input type="text" value="%s" name="urlShortened" class="form-control" id="urlOut" disabled></div><a href="%s" target="_blank"><button class="btn btn-primary btn-block" style="margin-top: 0.5rem">Visit</button></a>
-	<button class="btn btn-primary btn-block" style="margin-top: 0.5rem" onclick="copyToClipboard()">Copy</button>`, completeURL, completeURL)
 
-	tmpl, _ := template.New("t").Parse(htmlStr)
-
-	tmpl.Execute(w, nil)
+	templates.ResultHandler(w, completeURL)
 
 }

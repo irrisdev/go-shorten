@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/irrisdev/go-shorten/config"
 	"github.com/irrisdev/go-shorten/routes"
+	"github.com/irrisdev/go-shorten/templates"
 	"github.com/irrisdev/go-shorten/utils"
 	"log"
 	"net/http"
@@ -26,6 +27,9 @@ func main() {
 
 	//Initialise Routes
 	router := routes.InitRouter()
+
+	//Initialise Templates
+	templates.InitTemplates()
 
 	//Start Server
 	log.Println("Started on port", port)

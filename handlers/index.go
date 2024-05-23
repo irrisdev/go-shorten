@@ -1,8 +1,8 @@
 package handlers
 
 import (
+	"github.com/irrisdev/go-shorten/templates"
 	"github.com/irrisdev/go-shorten/utils"
-	"html/template"
 	"net/http"
 )
 
@@ -22,10 +22,14 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	//someExamples := utils.QueryAll(10)
 
-	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+	if r.Header.Get("HX-Request") == "true" {
 
-	if err := tmpl.Execute(w, nil); err != nil {
-		http.Error(w, "Internal Error", http.StatusInternalServerError)
+		templates.IndexHX(w)
+
+	} else {
+
+		templates.IndexHandler(w)
+
 	}
 
 }
