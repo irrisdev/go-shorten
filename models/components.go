@@ -5,7 +5,7 @@ const IndexForm = `
 <div class="w-full max-w-2xl lg:max-w-3xl" id="indexDiv">
     <form autocomplete="off" hx-post="/shorten/" hx-target="#indexDiv" hx-swap="outerHTML">
         <div class="innerForm mx-auto mt-3 relative min-w-0 max-w-8xl flex items-center justify-center py-2 px-2 rounded-2xl gap-2">
-            <input type="text" name="url" placeholder="Paste your long URL here" class="focus:outline-none px-6 py-3 rounded-md min-w-[3rem] flex-grow" required>
+            <input type="text" name="url" placeholder="Paste long URL here" class="focus:outline-none px-6 py-3 rounded-md min-w-[3rem] flex-grow" required>
             <button type="submit" class="bbtn focus:outline-none rounded-xl px-8 py-3">Generate</button>
         </div>
     </form>
@@ -41,7 +41,7 @@ const IndexHX = `
 <div class="w-full max-w-2xl lg:max-w-3xl" id="indexDiv">
     <form autocomplete="off" hx-post="/shorten/" hx-target="#indexDiv" hx-swap="outerHTML">
         <div class="innerForm mx-auto mt-3 relative min-w-0 max-w-8xl flex items-center justify-center py-2 px-2 rounded-2xl gap-2">
-            <input type="text" name="url" placeholder="Paste your long URL here" class="focus:outline-none px-6 py-3 rounded-md min-w-[3rem] flex-grow" required>
+            <input type="text" name="url" placeholder="Paste long URL here" class="focus:outline-none px-6 py-3 rounded-md min-w-[3rem] flex-grow" required>
             <button type="submit" class="bbtn focus:outline-none rounded-xl px-8 py-3">Generate</button>
         </div>
     </form>
