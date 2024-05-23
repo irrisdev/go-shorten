@@ -52,6 +52,8 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 		scheme = "http"
 	}
 
+	log.Println(r.TLS)
+
 	u := &url.URL{
 		Scheme: scheme,
 		Host:   r.Host,
@@ -59,7 +61,6 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	completeURL := u.String()
-
 	htmlStr := fmt.Sprintf(`<label for="urlShortened">Shortened URL</label>
     <div class="input-group" id="result" ><input type="text" value="%s" name="urlShortened" class="form-control" id="urlOut" disabled></div><a href="%s" target="_blank"><button class="btn btn-primary btn-block" style="margin-top: 0.5rem">Visit</button></a>
 	<button class="btn btn-primary btn-block" style="margin-top: 0.5rem" onclick="copyToClipboard()">Copy</button>`, completeURL, completeURL)
