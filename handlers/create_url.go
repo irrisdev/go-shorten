@@ -50,7 +50,7 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	u := &url.URL{
-		Scheme: "https",
+		Scheme: "http",
 		Host:   net.JoinHostPort(os.Getenv("HOST"), os.Getenv("PORT")),
 		Path:   entry.ShortURL,
 	}

@@ -2,9 +2,11 @@ package utils
 
 import (
 	"database/sql"
+	"errors"
 	"github.com/irrisdev/go-shorten/models"
 	"log"
 	"os"
+	"strings"
 )
 
 func QueryAll(n int) *[]models.URL {
@@ -84,4 +86,53 @@ func InsertEntry(url *models.URL) error {
 	}
 
 	return nil
+}
+
+func CheckExist(path string) (string, bool) {
+
+	s := strings.Split(path, "/")
+
+	if len(s) > 3 {
+		return "", false
+	}
+
+	code := s[len(s)-1]
+
+	db, err := openDB()
+	if err != nil {
+		log.Println(err)
+		return "", false
+	}
+	defer db.Close()
+
+	var url string
+
+	if err := db.QueryRow("SELECT OriginalURL FROM URLS WHERE ShortURL = ?", code).Scan(&url); err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			log.Println(err)
+			return "", false
+		}
+		log.Println(err)
+		return "", false
+	}
+
+	go click(code)
+
+	return url, true
+}
+
+func click(code string) {
+
+	db, err := openDB()
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	result, err := db.Exec("UPDATE URLS SET Clicks = Clicks + 1 WHERE ShortURL = ?", code)
+	if err != nil {
+		log.Println(err)
+	}
+	log.Println(result)
+
 }

@@ -5,6 +5,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // Import go-sqlite3 library
 	"log"
 	"os"
+	"strings"
 )
 
 // dbPath stores the path to the SQLite database
@@ -63,6 +64,14 @@ func createTables() error {
 
 // checkDB checks if the database file exists
 func checkDB() bool {
+	dirName := strings.Split(dbPath, "/")[0]
+	if _, err := os.Stat(dirName); os.IsNotExist(err) {
+		err = os.Mkdir(dirName, 0755)
+		if err != nil {
+			log.Fatal("Cannot continue without db ", err)
+		}
+	}
+
 	_, err := os.Stat(dbPath)
 	return !os.IsNotExist(err)
 }
