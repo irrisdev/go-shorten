@@ -5,10 +5,8 @@ import (
 	"github.com/irrisdev/go-shorten/models"
 	"github.com/irrisdev/go-shorten/utils"
 	"log"
-	"net"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 	"text/template"
 	"time"
@@ -51,7 +49,7 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 
 	u := &url.URL{
 		Scheme: "http",
-		Host:   net.JoinHostPort(os.Getenv("HOST"), os.Getenv("PORT")),
+		Host:   r.Host,
 		Path:   entry.ShortURL,
 	}
 

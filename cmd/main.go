@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/irrisdev/go-shorten/config"
-	"github.com/irrisdev/go-shorten/models"
 	"github.com/irrisdev/go-shorten/routes"
 	"github.com/irrisdev/go-shorten/utils"
 	"log"
@@ -20,24 +19,16 @@ func main() {
 		log.Fatal(err)
 	}
 
-	var host, port string
-	if host = os.Getenv("HOST"); host == "" {
-		host = "0.0.0.0"
-	}
+	var port string
 	if port = os.Getenv("PORT"); port == "" {
 		port = "8080"
-	}
-
-	s := models.Server{
-		Host: host,
-		Port: port,
 	}
 
 	//Initialise Routes
 	router := routes.InitRouter()
 
 	//Start Server
-	log.Println("Started on port", s.Port)
+	log.Println("Started on port", port)
 	fmt.Println("To close connection CTRL+C")
 
 	err := http.ListenAndServe(":"+port, router)
