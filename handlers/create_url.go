@@ -47,8 +47,13 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	scheme := "https"
+	if r.TLS == nil {
+		scheme = "http"
+	}
+
 	u := &url.URL{
-		Scheme: "http",
+		Scheme: scheme,
 		Host:   r.Host,
 		Path:   entry.ShortURL,
 	}
@@ -56,7 +61,8 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 	completeURL := u.String()
 
 	htmlStr := fmt.Sprintf(`<label for="urlShortened">Shortened URL</label>
-    <div class="input-group" id="result" ><input type="text" value="%s" name="urlShortened" class="form-control" id="urlOut" disabled></div>`, completeURL)
+    <div class="input-group" id="result" ><input type="text" value="%s" name="urlShortened" class="form-control" id="urlOut" disabled></div><a href="%s" target="_blank"><button class="btn btn-primary btn-block" style="margin-top: 0.5rem">Visit</button></a>
+	<button class="btn btn-primary btn-block" style="margin-top: 0.5rem" onclick="copyToClipboard()">Copy</button>`, completeURL, completeURL)
 
 	tmpl, _ := template.New("t").Parse(htmlStr)
 
