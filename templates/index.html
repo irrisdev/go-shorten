@@ -54,32 +54,33 @@
 
 <body>
 
-<div class="centered-form">
+<div class="centered-form" style="margin-left: 1rem; margin-right: 1rem">
     <div class="form-container">
-        <form hx-post="/shorten/" >
+        <form hx-post="/shorten/" hx-target="#result" id="urlForm">
             <div class="form-group">
                 <label for="url">Shorten a long URL</label>
                 <div class="input-group">
-                    <input type="text" name="url" class="form-control" id="url" aria-describedby="urlInput" placeholder="Paste a long URL: https://example.com">
+                    <input type="text" name="url" class="form-control" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" id="url" aria-describedby="urlInput" placeholder="Paste a long URL: https://example.com" required maxlength="100" minlength="1">
                 </div>
-                <small id="urlInput" class="form-text">Paste a long URL and receive a shortened one.</small>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Shorten URL</button>
+            <div id="result"></div>
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 0.5rem" >Shorten URL</button>
         </form>
     </div>
 </div>
 
-<div class="container">
-    <h1>URL Shortener</h1>
-    {{ range . }}
-    <div class="card">
-        <div class="card-body">
-            <p class="card-text">Original URL: {{ .OriginalURL }}</p>
-            <p class="card-text">Short URL: {{ .ShortURL }}</p>
-        </div>
-    </div>
-    {{ end }}
-</div>
+<!--<div class="container">-->
+<!--    <h1>URL Shortener</h1>-->
+<!--    {{ range . }}-->
+<!--    <div class="card">-->
+<!--        <div class="card-body">-->
+<!--            <p class="card-text">Original URL: {{ .OriginalURL }}</p>-->
+<!--            <p class="card-text">Short URL: {{ .ShortURL }}</p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    {{ end }}-->
+<!--</div>-->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

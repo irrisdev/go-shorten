@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/irrisdev/go-shorten/models"
 	"github.com/irrisdev/go-shorten/utils"
 	"log"
@@ -9,6 +10,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"text/template"
 	"time"
 )
 
@@ -18,8 +20,6 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	log.Println("HTMX Request Received")
-	log.Println(r.Header.Get("HX-Request"))
 
 	inputUrl := r.PostFormValue("url")
 
@@ -56,5 +56,12 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	completeURL := u.String()
-	log.Println(completeURL)
+
+	htmlStr := fmt.Sprintf(`<label for="urlShortened">Shortened URL</label>
+    <div class="input-group" id="result" ><input type="text" value="%s" name="urlShortened" class="form-control" id="urlOut" disabled></div>`, completeURL)
+
+	tmpl, _ := template.New("t").Parse(htmlStr)
+
+	tmpl.Execute(w, nil)
+
 }
