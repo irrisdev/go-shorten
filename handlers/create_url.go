@@ -48,7 +48,7 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	u := &url.URL{
-		Scheme: r.URL.Scheme,
+		Scheme: "https",
 		Host:   r.Host,
 		Path:   entry.ShortURL,
 	}
