@@ -47,15 +47,8 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	scheme := "https"
-	if r.TLS == nil {
-		scheme = "http"
-	}
-
-	log.Println(r.TLS)
-
 	u := &url.URL{
-		Scheme: scheme,
+		Scheme: r.URL.Scheme,
 		Host:   r.Host,
 		Path:   entry.ShortURL,
 	}
