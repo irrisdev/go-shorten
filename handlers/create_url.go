@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 	"text/template"
 	"time"
@@ -48,7 +49,7 @@ func CreateURL(w http.ResponseWriter, r *http.Request) {
 	}
 
 	u := &url.URL{
-		Scheme: "https",
+		Scheme: os.Getenv("SCHEME"),
 		Host:   r.Host,
 		Path:   entry.ShortURL,
 	}
